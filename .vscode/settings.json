@@ -1,0 +1,5 @@
+{
+    "python.formatting.provider": "black",
+    "python.pythonPath": "/Users/tkrause/Library/Caches/pypoetry/virtualenvs/sign-utils-yDMqT5aP-py3.9",
+    // "python.pythonPath": "/Users/tkrause/Library/Caches/pypoetry/virtualenvs/sign-purge-pZBtViUt-py3.8/bin/python"
+}

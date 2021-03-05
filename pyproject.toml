@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "sign_utils"
+version = "0.1.0"
+description = ""
+authors = ["Travis Krause <tkrause@adobe.com>"]
+
+[tool.poetry.scripts]
+sign = "sign_utils.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.25.0"
+python-dotenv = "^0.15.0"
+typer = "^0.3.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = {version = "^20.8b1", allow-prereleases = true}
+pylint = "^2.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
