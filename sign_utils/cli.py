@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from .sign import Sign
 from .assets import Transfer
+from .people import UMG
 
 app = typer.Typer()
 
@@ -56,9 +57,9 @@ def clone_template(
         help="Sending user's email",
         prompt=True,
     ),
-    reciever_email: str = typer.Option(
+    receiver_email: str = typer.Option(
         ...,
-        "--reciever",
+        "--receiver",
         "-r",
         help="Recieving user's email",
         prompt=True,
@@ -77,34 +78,81 @@ def clone_template(
         help="Base URI (Defaults to the BASE_URI env var)",
         callback=build_uri,
     ),
-    reciever_key: str = typer.Option(
+    receiver_key: str = typer.Option(
         None,
-        "--reciever-key",
+        "--receiver-key",
         "-K",
-        help="Integration key for the reciever (Defaults to sender's integration key)",
+        help="Integration key for the receiver (Defaults to sender's integration key)",
     ),
-    reciever_base_uri: str = typer.Option(
+    receiver_base_uri: str = typer.Option(
         None,
-        "--reciever-base-uri",
+        "--receiver-base-uri",
         "-U",
-        help="Base URI for the reciever (Defaults to sender's base uri)",
+        help="Base URI for the receiver (Defaults to sender's base uri)",
     ),
 ):
+    # Optional receiver info
+    if not receiver_key:
+        receiver_key = key
+    if not receiver_base_uri:
+        receiver_base_uri = base_uri
 
-    # Optional reciever info
-    if not reciever_key:
-        reciever_key = key
-    if not reciever_base_uri:
-        reciever_base_uri = base_uri
-
-    typer.echo(f"Cloning {template_id} from {sender_email} to {reciever_email}\n")
+    typer.echo(f"Cloning {template_id} from {sender_email} to {receiver_email}\n")
 
     sender = Sign(key, base_uri, sender_email)
-    reciever = Sign(reciever_key, reciever_base_uri, reciever_email)
-    transfer = Transfer(sender, reciever)
+    receiver = Sign(receiver_key, receiver_base_uri, receiver_email)
+    transfer = Transfer(sender, receiver)
     out = transfer.clone_template(template_id)
 
     typer.echo(f"Success!\n\nTemplate {out} created")
+
+
+@app.command()
+def default_primary_report(
+    key: str = typer.Option(
+        None,
+        "--integration-key",
+        "-k",
+        help="Integration key (Defaults to the INTEGRATION_KEY env var)",
+        callback=build_integration_key,
+    ),
+    base_uri: str = typer.Option(
+        None,
+        "--base-uri",
+        "-u",
+        help="Base URI (Defaults to the BASE_URI env var)",
+        callback=build_uri,
+    ),
+):
+    sign = Sign(key, base_uri)
+    umg = UMG(sign)
+    out = umg.users_with_default_primary()
+
+    typer.echo([out])
+
+
+@app.command()
+def make_default_not_primary(
+    key: str = typer.Option(
+        None,
+        "--integration-key",
+        "-k",
+        help="Integration key (Defaults to the INTEGRATION_KEY env var)",
+        callback=build_integration_key,
+    ),
+    base_uri: str = typer.Option(
+        None,
+        "--base-uri",
+        "-u",
+        help="Base URI (Defaults to the BASE_URI env var)",
+        callback=build_uri,
+    ),
+):
+    sign = Sign(key, base_uri)
+    umg = UMG(sign)
+    out = umg.make_default_not_primary()
+
+    typer.echo([out])
 
 
 def main():

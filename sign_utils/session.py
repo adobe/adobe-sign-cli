@@ -1,3 +1,11 @@
+##########################################################################
+# © Copyright 2015-2021 Adobe. All rights reserved.
+# Adobe holds the copyright for all the files found in this repository.
+# See the LICENSE file for licensing information.
+##########################################################################
+
+"""Session management & helpers."""
+
 from requests import Session
 from urllib.parse import urljoin
 
@@ -38,11 +46,14 @@ class SignSession(Session):
 
     @user.setter
     def user(self, user):
-        self.headers.update({"x-api-user": f"email:{user}"})
+        if user:
+            self.headers.update({"x-api-user": f"email:{user}"})
+        else:
+            self.headers.update({"x-api-user": None})
 
     @user.deleter
     def user(self):
-        self.headers.update({"x-api-user": None})
+        self.user = None
 
     def request(self, method, url, *args, **kwargs):
         url = urljoin(self.base_uri, url.lstrip("/"))

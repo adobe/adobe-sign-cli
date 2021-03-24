@@ -1,14 +1,33 @@
 [tool.poetry]
 name = "sign_utils"
 version = "0.1.0"
-description = ""
+description = "Basic CLI utility for administrative tasks for Adobe Sign"
 authors = ["Travis Krause <tkrause@adobe.com>"]
+maintainers = ["Travis Krause <tkrause@adobe.com>"]
+readme = "README.md"
+homepage = ""
+repository = ""
+license = "Apache-2.0"
+keywords = ["adobe", "esignature", "adobe sign", "sign", "cli"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities"
+]
+
+[tool.poetry.urls]
+"Adobe Sign" = "https://acrobat.adobe.com/us/en/sign.html"
+"Adobe Sign - Helpx" = "https://helpx.adobe.com/support/sign.html"
+"Adobe Sign - API Docs" = "https://secure.na1.adobesign.com/public/docs/restapi/v6"
+"Adobe Sign - API Samples" = "https://www.adobe.io/apis/documentcloud/sign/docs.html"
+"Adobe Sign - Dev Account" = "https://acrobat.adobe.com/us/en/sign/developer-form.html"
 
 [tool.poetry.scripts]
 sign = "sign_utils.cli:main"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 requests = "^2.25.0"
 python-dotenv = "^0.15.0"
 typer = "^0.3.2"
