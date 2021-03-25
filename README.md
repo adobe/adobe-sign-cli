@@ -6,11 +6,6 @@ Basic CLI utility for administrative tasks for Adobe Sign.
 
 Sometimes power users run into repetitive tasks, or requirements that are not achievable via the sign UI.  This CLI makes things easier and/or achievable.
 
-## Non-Goals
-
-It is also a good idea to declare what are _not_ goals of the project to prevent
-potential feature creep.
-
 ### Installation
 
 For easy installation, use pipx to install the shell as an executable.  You can also install w/ normal pip, if you want to use the base library in a project.
