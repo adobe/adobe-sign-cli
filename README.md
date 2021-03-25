@@ -35,12 +35,12 @@ sign
 
 ### Development
 
-For development, install with pipenv.
+For development, install with poetry.
 
 ```bash
 git clone foo
-pipenv install
-pipenv shell
+poetry install
+poetry shell
 sign
 ```
 
