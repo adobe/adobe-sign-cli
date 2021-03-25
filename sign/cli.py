@@ -10,7 +10,7 @@ import os
 import typer
 from dotenv import load_dotenv
 
-from .sign import Sign
+from .adapter import Sign
 from .assets import Transfer
 from .people import UMG
 

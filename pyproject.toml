@@ -24,7 +24,7 @@ classifiers = [
 "Adobe Sign - Dev Account" = "https://acrobat.adobe.com/us/en/sign/developer-form.html"
 
 [tool.poetry.scripts]
-sign = "adobesign.cli:main"
+sign = "sign.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.7"
