@@ -1,3 +1,11 @@
+##########################################################################
+# © Copyright 2015-2021 Adobe. All rights reserved.
+# Adobe holds the copyright for all the files found in this repository.
+# See the LICENSE file for licensing information.
+##########################################################################
+
+"""CLI interface for Adobe Sign."""
+
 import os
 import typer
 from dotenv import load_dotenv
@@ -38,6 +46,11 @@ def build_uri(uri):
 
 @app.command()
 def hello_world():
+    print("hi")
+
+
+@app.command()
+def setup():
     print("hi")
 
 
@@ -128,7 +141,7 @@ def default_primary_report(
     umg = UMG(sign)
     out = umg.users_with_default_primary()
 
-    typer.echo([out])
+    typer.echo(list(out))
 
 
 @app.command()
@@ -152,7 +165,7 @@ def make_default_not_primary(
     umg = UMG(sign)
     out = umg.make_default_not_primary()
 
-    typer.echo([out])
+    typer.echo(list(out))
 
 
 def main():

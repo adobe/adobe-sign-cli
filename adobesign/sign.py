@@ -14,7 +14,12 @@ class Sign:
         self.session = SignSession(integration_key, base_uri, user)
 
     def validate(self, resp, code=200):
-        if resp.status_code != code:
+        try:
+            success = resp.status_code in code
+        except TypeError:
+            success = resp.status_code != code
+
+        if success:
             raise Exception(
                 {
                     "issue": "Bad Response",
@@ -142,7 +147,7 @@ class Sign:
 
     def update_user_groups(self, user_id, data):
         resp = self.session.put(f"/users/{user_id}/groups", json=data)
-        self.validate(resp)
+        self.validate(resp, (200, 204))
         return resp.json()
 
     def get_groups(self, cur=None):
@@ -173,9 +178,7 @@ class Sign:
 
     def set_primary_group(self, user_id, group_id):
         user_groups = self.get_user_groups(user_id)
-        print(user_groups)
         for group in user_groups["groupInfoList"]:
             primary = group["id"] == group_id
             group["isPrimaryGroup"] = primary
         self.update_user_groups(user_id, user_groups)
-        print(user_groups)

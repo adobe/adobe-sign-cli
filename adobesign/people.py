@@ -37,6 +37,7 @@ class UMG:
                     new_key = int(i == 0)
                     new_group_id = user_groups["groupInfoList"][new_key]["id"]
                     self.sign.set_primary_group(user_id, new_group_id)
+                    yield f'Default for user {user_id}: {is_default} -> {new_group_id}'
 
 
 class Ownership:

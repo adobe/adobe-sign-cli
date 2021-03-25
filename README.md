@@ -6,13 +6,11 @@ should be considered a template for a typical project `README.md`.
 
 ## PROJECT NAME
 
-A short description of what this project does.
+Basic CLI utility for administrative tasks for Adobe Sign.
 
 ## Goals
 
-It is a good idea to provide a mission statement for your project, enshrining
-what the project wants to accomplish so that as more people join your project
-everyone can work in alignment.
+Sometimes power users run into repetitive tasks, or requirements that are not achievable via the sign UI.  This CLI makes things easier and/or achievable.
 
 ## Non-Goals
 
@@ -21,11 +19,29 @@ potential feature creep.
 
 ### Installation
 
-Instructions for how to download/install the code onto your machine.
+For easy installation, use pipx to install the shell as an executable.  You can also install w/ normal pip, if you want to use the base library in a project.
 
-Example:
+```bash
+# pipx
+pipx install adobesign
+sign --help
 ```
-npm install myProject --save
+
+```bash
+# pip
+pip install adobesign
+sign
+```
+
+### Development
+
+For development, install with pipenv.
+
+```bash
+git clone foo
+pipenv install
+pipenv shell
+sign
 ```
 
 ### Usage
@@ -34,10 +50,27 @@ Usage instructions for your code.
 
 Example:
 
-```
-var myMod = require('mymodule');
+```bash
+# RTFM
+sign
 
-myMod.foo('hi');
+# Clone a template
+sign clone-template
+
+# List users w/ multipls groups, but still in default
+sign default-primary-report
+```
+
+If you want to skip assigning your key, every time you run a script, you can save the key & base_uri in your env, or a .env file.
+
+```bash
+# Saving access via .env
+cp .env.dist .env
+code .env
+
+# Saving to your env
+export INTEGRATION_KEY={integration_key}
+export BASE_URI={integration_key}
 ```
 
 ### Contributing
