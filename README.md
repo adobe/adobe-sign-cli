@@ -27,7 +27,7 @@ sign
 For development, install with poetry.
 
 ```bash
-git clone foo
+git clone https://github.com/adobe/adobe-sign-cli.git
 poetry install
 poetry shell
 sign
