@@ -35,7 +35,8 @@ class Transfer:
         return new_template["id"]
 
     def bulk_clone(self):
-        # get all templates
-        ids = []
-        for id in ids:
-            self.clone_template(id)
+        templates = list(self.sender.get_template_list_all())
+
+        for template in templates:
+            self.clone_template(template)
+            yield template

@@ -50,14 +50,14 @@ def build_uri(uri):
     return f"{uri}api/rest/v6/"
 
 
-@app.command()
-def hello_world():
-    print("hi")
+# @app.command()
+# def hello_world():
+#     print("hi")
 
 
-@app.command()
-def setup():
-    print("hi")
+# @app.command()
+# def setup():
+#     print("hi")
 
 
 @app.command()
@@ -124,6 +124,66 @@ def clone_template(
     out = transfer.clone_template(template_id)
 
     typer.echo(f"Success!\n\nTemplate {out} created")
+
+
+@app.command()
+def clone_user_templates(
+    sender_email: str = typer.Option(
+        ...,
+        "--sender",
+        "-s",
+        help="Sending user's email",
+        prompt=True,
+    ),
+    receiver_email: str = typer.Option(
+        ...,
+        "--receiver",
+        "-r",
+        help="Recieving user's email",
+        prompt=True,
+    ),
+    key: str = typer.Option(
+        None,
+        "--integration-key",
+        "-k",
+        help="Integration key (Defaults to the INTEGRATION_KEY env var)",
+        callback=build_integration_key,
+    ),
+    base_uri: str = typer.Option(
+        None,
+        "--base-uri",
+        "-u",
+        help="Base URI (Defaults to the BASE_URI env var)",
+        callback=build_uri,
+    ),
+    receiver_key: str = typer.Option(
+        None,
+        "--receiver-key",
+        "-K",
+        help="Integration key for the receiver (Defaults to sender's integration key)",
+    ),
+    receiver_base_uri: str = typer.Option(
+        None,
+        "--receiver-base-uri",
+        "-U",
+        help="Base URI for the receiver (Defaults to sender's base uri)",
+    ),
+):
+    # Optional receiver info
+    if not receiver_key:
+        receiver_key = key
+    if not receiver_base_uri:
+        receiver_base_uri = base_uri
+
+    typer.echo(f"Cloning all templates from {sender_email} to {receiver_email}\n")
+
+    sender = Sign(key, base_uri, sender_email)
+    receiver = Sign(receiver_key, receiver_base_uri, receiver_email)
+    transfer = Transfer(sender, receiver)
+
+    for id in transfer.bulk_clone():
+        typer.echo(f"\nTemplate {id} created")
+    typer.echo(f"\nSuccess!")
 
 
 @app.command()

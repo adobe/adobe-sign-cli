@@ -46,7 +46,11 @@ class Sign:
 
     def get_template_list_all(self, cur=None):
         data = self.get_template_list(cur)
-        yield from [template["id"] for template in data["libraryDocumentList"]]
+        yield from [
+            template["id"]
+            for template in data["libraryDocumentList"]
+            if template["ownerEmail"] == self.session.user
+        ]
         if data.get("page", {}).get("nextCursor", None):
             cur = data.get("page", {}).get("nextCursor", None)
             yield from self.get_template_list_all(cur)
