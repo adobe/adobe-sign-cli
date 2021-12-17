@@ -50,6 +50,27 @@ def build_uri(uri):
     return f"{uri}api/rest/v6/"
 
 
+def build_reciever_integration_key(key):
+    if not key:
+        load_dotenv()
+        key = os.getenv("RECIEVER_INTEGRATION_KEY")
+    if not key:
+        key = typer.prompt(
+            "What's the reciever's integration key?  (Blank to match sender)",
+            hide_input=True,
+        )
+    return key
+
+
+def build_reciever_uri(uri):
+    if not uri:
+        load_dotenv()
+        uri = os.getenv("RECIEVER_BASE_URI")
+    if not uri:
+        uri = typer.prompt("What's the reciever's base uri?  (Blank to match sender)")
+    return f"{uri}api/rest/v6/"
+
+
 # @app.command()
 # def hello_world():
 #     print("hi")
@@ -102,12 +123,14 @@ def clone_template(
         "--receiver-key",
         "-K",
         help="Integration key for the receiver (Defaults to sender's integration key)",
+        callback=build_reciever_integration_key,
     ),
     receiver_base_uri: str = typer.Option(
         None,
         "--receiver-base-uri",
         "-U",
         help="Base URI for the receiver (Defaults to sender's base uri)",
+        callback=build_reciever_uri,
     ),
 ):
     # Optional receiver info
