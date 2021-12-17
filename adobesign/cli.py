@@ -184,12 +184,14 @@ def clone_user_templates(
         "--receiver-key",
         "-K",
         help="Integration key for the receiver (Defaults to sender's integration key)",
+        callback=build_reciever_integration_key,
     ),
     receiver_base_uri: str = typer.Option(
         None,
         "--receiver-base-uri",
         "-U",
         help="Base URI for the receiver (Defaults to sender's base uri)",
+        callback=build_reciever_uri,
     ),
 ):
     # Optional receiver info
