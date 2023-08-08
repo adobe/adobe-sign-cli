@@ -8,6 +8,8 @@ Sometimes power users run into repetitive tasks, or requirements that are not ac
 
 ### Installation
 
+> Requires Python 3.7!!!!  Someone can feel free to upgrade this to be compatible w/ more updated versions of Python.
+
 For easy installation, use pipx to install the shell as an executable.  You can also install w/ normal pip, if you want to use the base library in a project.
 
 ```bash
